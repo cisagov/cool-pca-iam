@@ -10,9 +10,8 @@ variable "pca_account_ids" {
 }
 
 variable "users" {
-  type = map
-  # Currently-defined roles: provisioner
-  description = "A map containing the usernames of each PCA user and a list of roles assigned to that user.  Example: { \"firstname1.lastname1\" = { \"roles\" = [ \"provisioner\" ] },  \"firstname2.lastname2\" = { \"roles\" = [ \"provisioner\" ] } }"
+  type        = map
+  description = "A map containing the usernames of each PCA user and a list of roles assigned to that user.  The currently-supported roles are: [\"provisioner\"].  Example: { \"firstname1.lastname1\" = { \"roles\" = [ \"provisioner\" ] },  \"firstname2.lastname2\" = { \"roles\" = [ \"provisioner\" ] } }"
 }
 
 # ------------------------------------------------------------------------------
