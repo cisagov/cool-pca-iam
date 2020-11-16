@@ -6,7 +6,7 @@
 
 variable "pca_account_ids" {
   type        = list(string)
-  description = "The list of PCA account IDs (e.g. [\"000000000000\", \"111111111111\"]).  Each account must contain a role that can be assumed to provision AWS resources in that account"
+  description = "The list of PCA account IDs (e.g. [\"000000000000\", \"111111111111\"]).  Each account must contain a role that can be assumed to provision AWS resources in that account and that role must match the name in the pca_provisionaccount_role_name variable."
 }
 
 variable "users" {
@@ -52,6 +52,6 @@ variable "provisioner_users_group_name" {
 
 variable "tags" {
   type        = map(string)
-  description = "Tags to apply to all AWS resources created"
+  description = "Tags to apply to all AWS resources created."
   default     = {}
 }
