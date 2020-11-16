@@ -58,10 +58,10 @@ and contain a ProvisionAccount role (ideally created via the
 | assume_pca_provisionaccount_policy_description | The description to associate with the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `Allow assumption of the ProvisionAccount role in the PCA account(s).` | no |
 | assume_pca_provisionaccount_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `PCA-AssumeProvisionAccount` | no |
 | aws_region | The AWS region where the non-global resources are to be provisioned (e.g. "us-east-1"). | `string` | `us-east-1` | no |
-| pca_account_ids | The list of PCA account IDs (e.g. ["000000000000", "111111111111"]).  Each account must contain a role that can be assumed to provision AWS resources in that account | `list(string)` | n/a | yes |
+| pca_account_ids | The list of PCA account IDs (e.g. ["000000000000", "111111111111"]).  Each account must contain a role that can be assumed to provision AWS resources in that account and that role must match the name in the pca_provisionaccount_role_name variable. | `list(string)` | n/a | yes |
 | pca_provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the PCA account(s). | `string` | `ProvisionAccount` | no |
 | provisioner_users_group_name | The name of the group to be created for provisioner users. | `string` | `pca_provisioners` | no |
-| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
+| tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
 | users | A map containing the usernames of each PCA user and a list of roles assigned to that user.  The currently-supported roles are: ["provisioner"].  Example: { "firstname1.lastname1" = { "roles" = [ "provisioner" ] },  "firstname2.lastname2" = { "roles" = [ "provisioner" ] } } | `map` | n/a | yes |
 
 ## Outputs ##
