@@ -4,9 +4,15 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
-variable "subnet_id" {
-  type        = string
-  description = "The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0)"
+variable "pca_account_ids" {
+  type        = list(string)
+  description = "The list of PCA account IDs (e.g. [\"000000000000\", \"111111111111\"]).  Each account must contain a role that can be assumed to provision AWS resources in that account"
+}
+
+variable "users" {
+  type = map
+  # Currently-defined roles: provisioner
+  description = "A map containing the usernames of each PCA user and a list of roles assigned to that user.  Example: { \"firstname1.lastname1\" = { \"roles\" = [ \"provisioner\" ] },  \"firstname2.lastname2\" = { \"roles\" = [ \"provisioner\" ] } }"
 }
 
 # ------------------------------------------------------------------------------
@@ -14,22 +20,35 @@ variable "subnet_id" {
 #
 # These parameters have reasonable defaults.
 # ------------------------------------------------------------------------------
-variable "ami_owner_account_id" {
+
+variable "assume_pca_provisionaccount_policy_description" {
   type        = string
-  description = "The ID of the AWS account that owns the Example AMI, or \"self\" if the AMI is owned by the same account as the provisioner."
-  default     = "self"
+  description = "The description to associate with the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s)."
+  default     = "Allow assumption of the ProvisionAccount role in the PCA account(s)."
 }
 
-variable "aws_availability_zone" {
+variable "assume_pca_provisionaccount_policy_name" {
   type        = string
-  description = "The AWS availability zone to deploy into (e.g. a, b, c, etc.)"
-  default     = "a"
+  description = "The name to assign the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s)."
+  default     = "PCA-AssumeProvisionAccount"
 }
 
 variable "aws_region" {
   type        = string
-  description = "The AWS region to deploy into (e.g. us-east-1)"
+  description = "The AWS region where the non-global resources are to be provisioned (e.g. \"us-east-1\")."
   default     = "us-east-1"
+}
+
+variable "pca_provisionaccount_role_name" {
+  type        = string
+  description = "The name of the IAM role that allows sufficient permissions to provision all AWS resources in the PCA account(s)."
+  default     = "ProvisionAccount"
+}
+
+variable "provisioner_users_group_name" {
+  type        = string
+  description = "The name of the group to be created for provisioner users."
+  default     = "pca_provisioners"
 }
 
 variable "tags" {
