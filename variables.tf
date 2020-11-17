@@ -20,6 +20,18 @@ variable "users" {
 # These parameters have reasonable defaults.
 # ------------------------------------------------------------------------------
 
+variable "assume_access_pca_terraform_backend_policy_description" {
+  type        = string
+  description = "The description to associate with the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources."
+  default     = "Allow assumption of the AccessPCATerraformBackend role in the Terraform account."
+}
+
+variable "assume_access_pca_terraform_backend_policy_name" {
+  type        = string
+  description = "The name to assign the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources."
+  default     = "AssumeAccessPCATerraformBackend"
+}
+
 variable "assume_pca_provisionaccount_policy_description" {
   type        = string
   description = "The description to associate with the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s)."
