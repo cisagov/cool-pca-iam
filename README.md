@@ -29,8 +29,8 @@ and contain a ProvisionAccount role (ideally created via the
    ]
 
    users = {
-     "first1.last1" = { "roles" = ["provisioner"] },
-     "first2.last2" = { "roles" = ["provisioner"] },
+     "first1.last1" = { "roles" = ["provisioner"], "self_admin" = true },
+     "first2.last2" = { "roles" = ["provisioner"], "self_admin" = false },
    }
    ```
 
@@ -62,7 +62,7 @@ and contain a ProvisionAccount role (ideally created via the
 | pca_provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the PCA account(s). | `string` | `ProvisionAccount` | no |
 | provisioner_users_group_name | The name of the group to be created for provisioner users. | `string` | `pca_provisioners` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
-| users | A map containing the usernames of each PCA user and a list of roles assigned to that user.  The currently-supported roles are: ["provisioner"].  Example: { "firstname1.lastname1" = { "roles" = [ "provisioner" ] },  "firstname2.lastname2" = { "roles" = [ "provisioner" ] } } | `map` | n/a | yes |
+| users | A map containing the usernames of each PCA user, a list of roles assigned to that user, and a boolean flag ("self_admin") that specifies if the user is allowed to self-administer their security credentials.  The currently-supported roles are: ["provisioner"].  Example: { "firstname1.lastname1" = { "roles" = [ "provisioner" ], "self_admin" = true },  "firstname2.lastname2" = { "roles" = [ "provisioner" ], "self_admin" = false } } | `map` | n/a | yes |
 
 ## Outputs ##
 
