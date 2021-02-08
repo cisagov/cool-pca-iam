@@ -10,8 +10,8 @@ variable "pca_account_ids" {
 }
 
 variable "users" {
-  type        = map
-  description = "A map containing the usernames of each PCA user, a list of roles assigned to that user, and a boolean flag (\"self_admin\") that specifies if the user is allowed to self-administer their security credentials.  The currently-supported roles are: [\"provisioner\"].  Example: { \"firstname1.lastname1\" = { \"roles\" = [ \"provisioner\" ], \"self_admin\" = true },  \"firstname2.lastname2\" = { \"roles\" = [ \"provisioner\" ], \"self_admin\" = false } }"
+  type        = map(map(list(string)))
+  description = "A map containing the usernames of each PCA user and a list of roles assigned to that user.  The only currently-defined role is \"provisioner\".  Example: { \"firstname1.lastname1\" = { \"roles\" = [ \"provisioner\" ] } }"
 }
 
 # ------------------------------------------------------------------------------
