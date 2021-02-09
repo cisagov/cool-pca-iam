@@ -13,6 +13,8 @@ data "aws_iam_policy_document" "assume_access_pca_terraform_backend_role_doc" {
 }
 
 resource "aws_iam_policy" "assume_access_pca_terraform_backend_role" {
+  provider = aws.users
+
   description = var.assume_access_pca_terraform_backend_policy_description
   name        = var.assume_access_pca_terraform_backend_policy_name
   policy      = data.aws_iam_policy_document.assume_access_pca_terraform_backend_role_doc.json
@@ -20,6 +22,8 @@ resource "aws_iam_policy" "assume_access_pca_terraform_backend_role" {
 
 # Attach the policy to the provisioners users group
 resource "aws_iam_group_policy_attachment" "assume_access_pca_terraform_backend_role_attachment" {
+  provider = aws.users
+
   group      = aws_iam_group.provisioner_users.name
   policy_arn = aws_iam_policy.assume_access_pca_terraform_backend_role.arn
 }
