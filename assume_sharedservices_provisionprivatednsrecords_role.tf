@@ -13,18 +13,14 @@ data "aws_iam_policy_document" "assume_sharedservices_provisionprivatednsrecords
   }
 }
 
-resource "aws_iam_policy" "assume_sharedservices_provisionprivatednsrecords_role" {
+# Create an inline policy for the provisioners users group
+# NOTE: This policy is created inline because it is identical to a policy
+# used elsewhere and we must avoid duplicate policy names. At this time, we
+# don't have a good place to create the policy on it's own, so inline it is.
+resource "aws_iam_group_policy" "assume_sharedservices_provisionprivatednsrecords_role" {
   provider = aws.users
 
-  description = var.assume_sharedservices_provisionprivatednsrecords_policy_description
-  name        = var.assume_sharedservices_provisionprivatednsrecords_policy_name
-  policy      = data.aws_iam_policy_document.assume_sharedservices_provisionprivatednsrecords_role_doc.json
-}
-
-# Attach the policy to the provisioners users group
-resource "aws_iam_group_policy_attachment" "assume_sharedservices_provisionprivatednsrecords_role_attachment" {
-  provider = aws.users
-
-  group      = aws_iam_group.provisioner_users.name
-  policy_arn = aws_iam_policy.assume_sharedservices_provisionprivatednsrecords_role.arn
+  name   = var.assume_sharedservices_provisionprivatednsrecords_policy_name
+  group  = aws_iam_group.provisioner_users.name
+  policy = data.aws_iam_policy_document.assume_sharedservices_provisionprivatednsrecords_role_doc.json
 }
