@@ -7,13 +7,24 @@ to COOL PCA accounts and resources.
 
 ## Pre-Requisites ##
 
-Before attempting to use this project, ensure that a Users account has been
-created and contains a ProvisionAccount role (ideally created via the
-[`cool-accounts`](https://github.com/cisagov/cool-accounts) repository).
-
-Each PCA account specified in the `pca_account_ids` variable must also exist
-and contain a ProvisionAccount role (ideally created via the
-[`cool-accounts-pca`](https://github.com/cisagov/cool-accounts-pca) repository).
+- [Terraform](https://www.terraform.io/) installed on your system.
+- An accessible AWS S3 bucket to store Terraform state
+  (specified in [backend.tf](backend.tf)).
+- An accessible AWS DynamoDB database to store the Terraform state lock
+  (specified in [backend.tf](backend.tf)).
+- Access to all of the Terraform remote states specified in
+  [remote_states.tf](remote_states.tf).
+- User accounts for all users must have been created previously.  We
+  recommend using the
+  [`cisagov/cool-users-non-admin`](https://github.com/cisagov/cool-users-non-admin)
+  repository to create users.
+- Each PCA account specified in the `pca_account_ids` variable must exist
+  and contain a ProvisionAccount role.  We recommend using the
+  [`cool-accounts-pca`](https://github.com/cisagov/cool-accounts-pca)
+  repository to create these accounts.
+- Terraform in
+  [`cisagov/cool-sharedservices-networking`](https://github.com/cisagov/cool-sharedservices-networking)
+  must have been applied.
 
 ## Usage ##
 
@@ -61,7 +72,6 @@ and contain a ProvisionAccount role (ideally created via the
 | assume_access_pca_terraform_backend_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources. | `string` | `AssumeAccessPCATerraformBackend` | no |
 | assume_pca_provisionaccount_policy_description | The description to associate with the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `Allow assumption of the ProvisionAccount role in the PCA account(s).` | no |
 | assume_pca_provisionaccount_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `PCA-AssumeProvisionAccount` | no |
-| assume_sharedservices_provisionprivatednsrecords_policy_description | The description to associate with the IAM policy that allows assumption of the role that allows access to provision DNS records in private zones in the Shared Services account. | `string` | `Allow assumption of the ProvisionPrivateDNSRecords role in the Shared Services account.` | no |
 | assume_sharedservices_provisionprivatednsrecords_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision DNS records in private zones in the Shared Services account. | `string` | `SharedServices-AssumeProvisionPrivateDNSRecords` | no |
 | aws_region | The AWS region where the non-global resources are to be provisioned (e.g. "us-east-1"). | `string` | `us-east-1` | no |
 | pca_account_ids | The list of PCA account IDs (e.g. ["000000000000", "111111111111"]).  Each account must contain a role that can be assumed to provision AWS resources in that account and that role must match the name in the pca_provisionaccount_role_name variable. | `list(string)` | n/a | yes |
