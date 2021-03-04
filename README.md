@@ -7,13 +7,24 @@ to COOL PCA accounts and resources.
 
 ## Pre-Requisites ##
 
-Before attempting to use this project, ensure that a Users account has been
-created and contains a ProvisionAccount role (ideally created via the
-[`cool-accounts`](https://github.com/cisagov/cool-accounts) repository).
-
-Each PCA account specified in the `pca_account_ids` variable must also exist
-and contain a ProvisionAccount role (ideally created via the
-[`cool-accounts-pca`](https://github.com/cisagov/cool-accounts-pca) repository).
+- [Terraform](https://www.terraform.io/) installed on your system.
+- An accessible AWS S3 bucket to store Terraform state
+  (specified in [backend.tf](backend.tf)).
+- An accessible AWS DynamoDB database to store the Terraform state lock
+  (specified in [backend.tf](backend.tf)).
+- Access to all of the Terraform remote states specified in
+  [remote_states.tf](remote_states.tf).
+- User accounts for all users must have been created previously.  We
+  recommend using the
+  [`cisagov/cool-users-non-admin`](https://github.com/cisagov/cool-users-non-admin)
+  repository to create users.
+- Each PCA account specified in the `pca_account_ids` variable must exist
+  and contain a ProvisionAccount role.  We recommend using the
+  [`cool-accounts-pca`](https://github.com/cisagov/cool-accounts-pca)
+  repository to create these accounts.
+- Terraform in
+  [`cisagov/cool-sharedservices-networking`](https://github.com/cisagov/cool-sharedservices-networking)
+  must have been applied.
 
 ## Usage ##
 
