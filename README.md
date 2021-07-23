@@ -54,35 +54,61 @@ to COOL PCA accounts and resources.
 | Name | Version |
 |------|---------|
 | terraform | ~> 0.12.0 |
-| aws | ~> 3.0 |
+| aws | ~> 3.38 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.0 |
-| aws.users | ~> 3.0 |
+| aws | ~> 3.38 |
+| aws.users | ~> 3.38 |
 | terraform | n/a |
+
+## Modules ##
+
+No modules.
+
+## Resources ##
+
+| Name | Type |
+|------|------|
+| [aws_iam_group.provisioner_users](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group) | resource |
+| [aws_iam_group_policy.assume_sharedservices_provisionprivatednsrecords_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy) | resource |
+| [aws_iam_group_policy_attachment.assume_access_pca_terraform_backend_role_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment) | resource |
+| [aws_iam_group_policy_attachment.assume_pca_provisionaccount_role_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment) | resource |
+| [aws_iam_group_policy_attachment.assume_read_sharedservices_networking_state_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy_attachment) | resource |
+| [aws_iam_policy.assume_access_pca_terraform_backend_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.assume_pca_provisionaccount_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_user_group_membership.provisioner](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_group_membership) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.assume_access_pca_terraform_backend_role_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.assume_pca_provisionaccount_role_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.assume_sharedservices_provisionprivatednsrecords_role_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_user.users](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_user) | data source |
+| [terraform_remote_state.sharedservices_networking_production](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.sharedservices_networking_staging](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.terraform](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.users](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| assume_access_pca_terraform_backend_policy_description | The description to associate with the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources. | `string` | `Allow assumption of the AccessPCATerraformBackend role in the Terraform account.` | no |
-| assume_access_pca_terraform_backend_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources. | `string` | `AssumeAccessPCATerraformBackend` | no |
-| assume_pca_provisionaccount_policy_description | The description to associate with the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `Allow assumption of the ProvisionAccount role in the PCA account(s).` | no |
-| assume_pca_provisionaccount_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `PCA-AssumeProvisionAccount` | no |
-| assume_sharedservices_provisionprivatednsrecords_policy_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision DNS records in private zones in the Shared Services account. | `string` | `SharedServices-AssumeProvisionPrivateDNSRecords` | no |
-| aws_region | The AWS region where the non-global resources are to be provisioned (e.g. "us-east-1"). | `string` | `us-east-1` | no |
-| pca_account_ids | The list of PCA account IDs (e.g. ["000000000000", "111111111111"]).  Each account must contain a role that can be assumed to provision AWS resources in that account and that role must match the name in the pca_provisionaccount_role_name variable. | `list(string)` | n/a | yes |
-| pca_provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the PCA account(s). | `string` | `ProvisionAccount` | no |
-| provisioner_users_group_name | The name of the group to be created for provisioner users. | `string` | `pca_provisioners` | no |
+| assume\_access\_pca\_terraform\_backend\_policy\_description | The description to associate with the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources. | `string` | `"Allow assumption of the AccessPCATerraformBackend role in the Terraform account."` | no |
+| assume\_access\_pca\_terraform\_backend\_policy\_name | The name to assign the IAM policy that allows assumption of the role that allows access to PCA-related Terraform backend resources. | `string` | `"AssumeAccessPCATerraformBackend"` | no |
+| assume\_pca\_provisionaccount\_policy\_description | The description to associate with the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `"Allow assumption of the ProvisionAccount role in the PCA account(s)."` | no |
+| assume\_pca\_provisionaccount\_policy\_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision all AWS resources in the PCA account(s). | `string` | `"PCA-AssumeProvisionAccount"` | no |
+| assume\_sharedservices\_provisionprivatednsrecords\_policy\_name | The name to assign the IAM policy that allows assumption of the role that allows access to provision DNS records in private zones in the Shared Services account. | `string` | `"SharedServices-AssumeProvisionPrivateDNSRecords"` | no |
+| aws\_region | The AWS region where the non-global resources are to be provisioned (e.g. "us-east-1"). | `string` | `"us-east-1"` | no |
+| pca\_account\_ids | The list of PCA account IDs (e.g. ["000000000000", "111111111111"]).  Each account must contain a role that can be assumed to provision AWS resources in that account and that role must match the name in the pca\_provisionaccount\_role\_name variable. | `list(string)` | n/a | yes |
+| pca\_provisionaccount\_role\_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the PCA account(s). | `string` | `"ProvisionAccount"` | no |
+| provisioner\_users\_group\_name | The name of the group to be created for provisioner users. | `string` | `"pca_provisioners"` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
 | users | A map containing the usernames of each PCA user and a list of roles assigned to that user.  The only currently-defined role is "provisioner".  Example: { "firstname1.lastname1" = { "roles" = [ "provisioner" ] } } | `map(map(list(string)))` | n/a | yes |
 
 ## Outputs ##
 
-No output.
+No outputs.
 
 ## Notes ##
 
