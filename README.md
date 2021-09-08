@@ -1,6 +1,6 @@
-# cool-users-pca #
+# cool-pca-iam #
 
-[![GitHub Build Status](https://github.com/cisagov/cool-users-pca/workflows/build/badge.svg)](https://github.com/cisagov/cool-users-pca/actions)
+[![GitHub Build Status](https://github.com/cisagov/cool-pca-iam/workflows/build/badge.svg)](https://github.com/cisagov/cool-pca-iam/actions)
 
 This project is used to manage IAM user accounts and group membership related
 to COOL PCA accounts and resources.
