@@ -53,7 +53,7 @@ to COOL PCA accounts and resources.
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.13.0 |
+| terraform | ~> 0.14.0 |
 | aws | ~> 3.38 |
 
 ## Providers ##
